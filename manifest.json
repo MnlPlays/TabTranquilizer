@@ -2,16 +2,23 @@
   "manifest_version": 3,
   "name": "TabTranquilizer",
   "version": "1.0",
-  "description": "A smart tab manager that groups tabs, auto-closes inactive tabs, saves session snapshots, and bookmarks tabs for later.",
-  "icons": {
-    "128": "icons.png"
-  },
+  "description": "A smart tab manager that groups tabs, freezes inactive pages, and closes frozen tabs after a delay with a warning popup.",
   "permissions": [
     "tabs",
-    "storage"
+    "storage",
+    "activeTab",
+    "scripting",
+    "notifications"
   ],
   "host_permissions": [
     "<all_urls>"
+  ],
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["activity.js"],
+      "run_at": "document_end"
+    }
   ],
   "action": {
     "default_popup": "popup.html",
@@ -24,3 +31,5 @@
   },
   "options_page": "options.html"
 }
+
+

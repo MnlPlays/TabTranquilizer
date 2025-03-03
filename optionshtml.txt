@@ -11,12 +11,51 @@
 </head>
 <body>
   <h2>Options</h2>
+  
+  <!-- Page Freezer Options -->
   <label>
-    Auto-Close Inactive Tabs (minutes):
-    <input type="number" id="autoCloseMinutes" min="1" />
+    <input type="checkbox" id="pageFreezerEnabledCheckbox">
+    Enable Page Freezer
   </label>
+  
+  <label>
+    Freeze After (seconds):
+    <input type="number" id="freezeAfterSeconds" min="1" value="5" />
+  </label>
+  
+  <label>
+    Frozen Tabs Close After (seconds):
+    <input type="number" id="frozenCloseSeconds" min="1" value="300" />
+  </label>
+  
+  <!-- Auto-Grouping Toggle -->
+  <label>
+    <input type="checkbox" id="autoGroupingCheckbox"> Enable Auto Grouping
+  </label>
+  
+  <!-- Grouping Mode Option -->
+  <fieldset>
+    <legend>Grouping Mode:</legend>
+    <label>
+      <input type="radio" name="groupingMode" value="basic" id="basicGroupingRadio">
+      Basic Grouping (by Domain)
+    </label>
+    <label>
+      <input type="radio" name="groupingMode" value="smart" id="smartGroupingRadio">
+      Smart Grouping (by Keywords)
+    </label>
+  </fieldset>
+  
+  <!-- Extension On/Off Toggle -->
+  <label>
+    <input type="checkbox" id="extensionEnabledCheckbox"> Enable Extension
+  </label>
+  
   <button id="saveOptionsBtn">Save Options</button>
   
   <script src="options.js"></script>
 </body>
 </html>
+
+
+

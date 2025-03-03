@@ -1,21 +1,58 @@
 document.addEventListener('DOMContentLoaded', function() {
-  const autoCloseInput = document.getElementById('autoCloseMinutes');
+  const freezeEnabledCheckbox = document.getElementById('pageFreezerEnabledCheckbox');
+  const freezeAfterInput = document.getElementById('freezeAfterSeconds');
+  const frozenCloseInput = document.getElementById('frozenCloseSeconds');
+  const autoGroupingCheckbox = document.getElementById('autoGroupingCheckbox');
+  const basicGroupingRadio = document.getElementById('basicGroupingRadio');
+  const smartGroupingRadio = document.getElementById('smartGroupingRadio');
+  const extensionEnabledCheckbox = document.getElementById('extensionEnabledCheckbox');
   const saveOptionsBtn = document.getElementById('saveOptionsBtn');
-
-  // Load the saved threshold (default is 10 minutes)
-  chrome.storage.sync.get({ autoCloseMinutes: 10 }, (data) => {
-    autoCloseInput.value = data.autoCloseMinutes;
+  
+  // Load saved settings with defaults.
+  chrome.storage.sync.get({
+    pageFreezerEnabled: true,
+    freezeAfterSeconds: 5,
+    frozenCloseSeconds: 300,
+    autoGroupingEnabled: true,
+    groupingMode: "smart",
+    extensionEnabled: true
+  }, (data) => {
+    freezeEnabledCheckbox.checked = data.pageFreezerEnabled;
+    freezeAfterInput.value = data.freezeAfterSeconds;
+    frozenCloseInput.value = data.frozenCloseSeconds;
+    autoGroupingCheckbox.checked = data.autoGroupingEnabled;
+    extensionEnabledCheckbox.checked = data.extensionEnabled;
+    if (data.groupingMode === "basic") {
+      basicGroupingRadio.checked = true;
+    } else {
+      smartGroupingRadio.checked = true;
+    }
   });
-
-  // Save the new threshold when the user clicks "Save Options"
+  
   saveOptionsBtn.addEventListener('click', () => {
-    const minutes = parseInt(autoCloseInput.value);
-    if (isNaN(minutes) || minutes < 1) {
-      alert("Please enter a valid number of minutes (minimum 1).");
+    const freezeAfterSeconds = parseInt(freezeAfterInput.value);
+    const frozenCloseSeconds = parseInt(frozenCloseInput.value);
+    if (isNaN(freezeAfterSeconds) || freezeAfterSeconds < 1) {
+      alert("Please enter a valid number of seconds (minimum 1) for freeze delay.");
       return;
     }
-    chrome.storage.sync.set({ autoCloseMinutes: minutes }, () => {
+    if (isNaN(frozenCloseSeconds) || frozenCloseSeconds < 1) {
+      alert("Please enter a valid number of seconds (minimum 1) for frozen tab close delay.");
+      return;
+    }
+    const groupingMode = basicGroupingRadio.checked ? "basic" : "smart";
+    
+    chrome.storage.sync.set({
+      pageFreezerEnabled: freezeEnabledCheckbox.checked,
+      freezeAfterSeconds: freezeAfterSeconds,
+      frozenCloseSeconds: frozenCloseSeconds,
+      autoGroupingEnabled: autoGroupingCheckbox.checked,
+      groupingMode: groupingMode,
+      extensionEnabled: extensionEnabledCheckbox.checked
+    }, () => {
       alert("Options saved.");
     });
   });
 });
+
+
