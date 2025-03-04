@@ -1,35 +1,29 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="UTF-8">
-  <title>TabTranquilizer</title>
+  <title>Tab Manager</title>
   <style>
-    body { font-family: Arial, sans-serif; padding: 10px; width: 300px; }
-    button { margin: 5px 0; width: 100%; }
+    body { font-family: sans-serif; margin: 10px; }
+    button { margin: 5px 0; }
     ul { list-style-type: none; padding: 0; }
     li { margin: 5px 0; }
-    li button { font-size: 0.8em; }
-    input[type="text"], input[type="number"] { width: 100%; padding: 5px; margin-bottom: 5px; }
-    label { display: block; margin: 5px 0; }
+    #status { margin-top: 10px; color: blue; }
   </style>
 </head>
 <body>
-  <h2>TabTranquilizer</h2>
-  
-  <!-- Extension On/Off Switch, Save/Restore, Bookmark Group, etc. -->
+  <h2>Session Manager</h2>
   <button id="saveSessionBtn">Save Session</button>
   <button id="restoreSessionBtn">Restore Session</button>
   
-  <label for="groupNameInput">Tab Group Name:</label>
-  <input type="text" id="groupNameInput" placeholder="Enter group name" />
-  <button id="bookmarkGroupBtn">Bookmark Tab Group</button>
-  
-  <h3>Bookmarked Groups</h3>
+  <h2>Bookmark Groups</h2>
+  <input type="text" id="groupNameInput" placeholder="Enter group name">
+  <button id="bookmarkGroupBtn">Bookmark Group</button>
   <ul id="bookmarkList"></ul>
   
-  <!-- New Options Button -->
   <button id="optionsBtn">Options</button>
+  <div id="status"></div>
   
   <script src="popup.js"></script>
 </body>
 </html>
+
