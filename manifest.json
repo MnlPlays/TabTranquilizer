@@ -1,15 +1,13 @@
 {
   "manifest_version": 3,
   "name": "TabTranquilizer",
-  "version": "1.0",
+  "version": "1.1",
   "description": "A smart tab manager that groups tabs, freezes inactive pages, and closes frozen tabs after a delay with a warning popup.",
   "permissions": [
     "tabs",
     "storage",
     "activeTab",
-    "scripting",
-    "notifications",
-    "sessions"
+    "scripting"
   ],
   "host_permissions": [
     "<all_urls>"
